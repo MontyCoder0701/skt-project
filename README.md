@@ -1,9 +1,12 @@
-# Fashion-Project
+# SKT-Project
 
 SKT FLYAI 프로젝트
 
 Python backend (ML)  
 React frontend
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
 ## Usage
 
@@ -15,6 +18,12 @@ Create venv
 
 ```sh
 python3 -m venv venv
+```
+
+Access issues
+
+```sh
+Set-ExecutionPolicy Unrestricted -Scope Process
 ```
 
 Run venv
@@ -33,7 +42,7 @@ Server should be running on <http://127.0.0.1:5000/>
 
 ## Run UI (on frontend path)
 
-Make sure node js is previously installed.
+Make sure node js is previously installed. (Version v16.13.0)
 
 ```sh
 npm install
