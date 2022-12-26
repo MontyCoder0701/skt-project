@@ -59,3 +59,4 @@ UI should be running on <http://localhost:3000/>
 - Make sure all libraries are installed prior.
 - If the model is updated, it should be run before running the server.
 - The server should be running before the client is launched.
+- Check the version of node js
