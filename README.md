@@ -54,6 +54,14 @@ npm start
 
 UI should be running on <http://localhost:3000/>
 
+## Run Streamlit UI (on streamlit path)
+
+```sh
+py -m streamlit run gui.py
+```
+
+Streamlit UI should be running on <http://localhost:8501/>
+
 ## Common mistakes
 
 - Make sure all libraries are installed prior.
