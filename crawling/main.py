@@ -77,4 +77,10 @@ weather = wait.until(EC.presence_of_element_located(
     (By.CSS_SELECTOR, "#wob_tm")))
 print(weather.text + "°C")
 
+# 기온 아이콘 저장
+with open("crawling/weather/icon.png", 'wb') as file:
+    l = driver.find_element(
+        "xpath", "//*[@id='wob_tci']")
+    file.write(l.screenshot_as_png)
+
 driver.close()
