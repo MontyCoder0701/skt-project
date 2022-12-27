@@ -6,6 +6,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import requests as req
+from bs4 import BeautifulSoup as BS
 
 
 def get_driver():
@@ -18,7 +20,7 @@ options.add_argument("window-size=1000,1000")
 options.add_argument("lang=en-GB")
 options.add_argument('--disable-gpu')
 options.add_argument("no-sandbox")
-
+options.add_argument('--headless')
 
 # 11번가 크롤링
 driver = get_driver()
@@ -34,33 +36,18 @@ def find(wait, css_selector):
 search = find(wait, "#tSearch > form > fieldset > input")
 search.send_keys("후드티\n")
 
-recommend_1 = wait.until(EC.presence_of_element_located(
-    (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(1) > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-print(recommend_1.text)
-
-recommend_2 = wait.until(EC.presence_of_element_located(
-    (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(2) > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-print(recommend_2.text)
-
-recommend_3 = wait.until(EC.presence_of_element_located(
-    (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(3) > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-print(recommend_3.text)
-
-recommend_4 = wait.until(EC.presence_of_element_located(
-    (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(4) > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-print(recommend_4.text)
-
-recommend_5 = wait.until(EC.presence_of_element_located(
-    (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(5) > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-print(recommend_5.text)
+for i in range(1, 6):
+    i = wait.until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
+    print(i.text)
 
 driver.close()
 
 
-# 기상청 크롤링
+# 기온 크롤링
 driver = get_driver()
 driver.get(
-    "https://www.accuweather.com/ko/kr/boramae-dong/2332264/current-weather/2332264")
+    "https://www.google.com/search?q=%EB%B3%B4%EB%9D%BC%EB%A7%A4+%EB%82%A0%EC%94%A8&ei=qVWqY-eoD83r-Aab_oCADQ&ved=0ahUKEwinodfM3Zj8AhXNNd4KHRs_ANAQ4dUDCA8&uact=5&oq=%EB%B3%B4%EB%9D%BC%EB%A7%A4+%EB%82%A0%EC%94%A8&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIKCAAQgAQQRhCAAjoKCAAQRxDWBBCwAzoRCC4QgwEQrwEQxwEQsQMQgAQ6BQgAEIAEOgsILhCABBDHARCvAToLCC4QrwEQxwEQgAQ6BAgAEAM6BwgAEB4Q8QQ6BAgAEB46BggAEAgQHkoECEEYAEoECEYYAFD-AliYD2CxEGgDcAF4AIABkwGIAacKkgEEMC4xMJgBAKABAcgBCsABAQ&sclient=gws-wiz-serp")
 
 wait = WebDriverWait(driver, 5)
 
@@ -70,7 +57,7 @@ def find(wait, css_selector):
 
 
 weather = wait.until(EC.presence_of_element_located(
-    (By.CSS_SELECTOR, "body > div.template-root > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.current-weather-info > div > div")))
-print(weather.text)
+    (By.CSS_SELECTOR, "#wob_tm")))
+print(weather.text + "°C")
 
 driver.close()
