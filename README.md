@@ -17,7 +17,7 @@ The complete guide to use this repository: <https://towardsdatascience.com/creat
 Create venv
 
 ```sh
-python3 -m venv venv
+python3 -m venv env
 ```
 
 Access issues
@@ -29,7 +29,7 @@ Set-ExecutionPolicy Unrestricted -Scope Process
 Run venv
 
 ```sh
-.\venv\Scripts\activate.ps1
+.\env\Scripts\activate.ps1
 ```
 
 ## Run server (on backend path)
