@@ -8,6 +8,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import requests as req
 from bs4 import BeautifulSoup as BS
+import urllib.request
+import time
 
 
 def get_driver():
@@ -40,6 +42,12 @@ for i in range(1, 6):
     i = wait.until(EC.presence_of_element_located(
         (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
     print(i.text)
+
+for i in range(1, 6):
+    with open("crawling/image/후드"+str(i)+".png", 'wb') as file:
+        l = driver.find_element(
+            "xpath", "//*[@id='layBodyWrap']/div/div/div[3]/div/section[1]/ul/li[" + str(i) + "]/div/div[1]/a/img")
+        file.write(l.screenshot_as_png)
 
 driver.close()
 
