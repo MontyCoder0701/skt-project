@@ -1,3 +1,7 @@
+from bs4 import BeautifulSoup as soup
+import re
+from bs4 import BeautifulSoup
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,7 +12,6 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import requests as req
 from bs4 import BeautifulSoup as BS
-import urllib.request
 import time
 
 
@@ -38,19 +41,25 @@ def find(wait, css_selector):
 search = find(wait, "#tSearch > form > fieldset > input")
 search.send_keys("후드티\n")
 
+# 제품명 출력
 for i in range(1, 6):
     i = wait.until(EC.presence_of_element_located(
         (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
     print(i.text)
 
+# 제품 이미지 저장
 for i in range(1, 6):
     with open("crawling/image/후드"+str(i)+".png", 'wb') as file:
         l = driver.find_element(
             "xpath", "//*[@id='layBodyWrap']/div/div/div[3]/div/section[1]/ul/li[" + str(i) + "]/div/div[1]/a/img")
         file.write(l.screenshot_as_png)
 
-driver.close()
+# 제품 구매링크 출력
+for i in range(1, 6):
+    print(driver.find_element(By.CSS_SELECTOR,
+                              "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(" + str(i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href'))
 
+driver.close()
 
 # 기온 크롤링
 driver = get_driver()
