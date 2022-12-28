@@ -1,7 +1,3 @@
-from bs4 import BeautifulSoup as soup
-import re
-from bs4 import BeautifulSoup
-import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -38,49 +34,65 @@ def find(wait, css_selector):
     return wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
 
+list_a = ["브이넥 상의", "라운드넥 상의", "스퀘어넥", "유넥 여성",
+          "일자핏 하의", "부츠컷 하의", "H라인 하의", "슬림핏 하의"]
+list_b = ["오프숄더 상의", "퍼프소매 상의", "레이스 상의", "셔링 상의",
+          "A라인 하의", "하이웨스트 하의", "세미와이드 하의", "테이퍼드핏 하의"]
+list_c = ["오버핏 상의", "린넨 상의", "셔츠 상의", "자켓 상의",
+          "와이드핏 하의", "루즈핏 하의", "핀턱 하의", "조거팬츠 하의"]
+
 search = find(wait, "#tSearch > form > fieldset > input")
-search.send_keys("후드티\n")
+search.send_keys(str(list_a[1])+"\n")
 
 # 제품명 출력
 for i in range(1, 6):
-    i = wait.until(EC.presence_of_element_located(
-        (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
+    try:
+        i = wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
+    except:
+        i = wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
     print(i.text)
 
 # 제품 이미지 저장
 for i in range(1, 6):
-    with open("crawling/image/후드"+str(i)+".png", 'wb') as file:
+    with open("crawling/image/" + str(list_a[0]) + str(i)+".png", 'wb') as file:
         l = driver.find_element(
             "xpath", "//*[@id='layBodyWrap']/div/div/div[3]/div/section[1]/ul/li[" + str(i) + "]/div/div[1]/a/img")
         file.write(l.screenshot_as_png)
 
 # 제품 구매링크 출력
 for i in range(1, 6):
-    print(driver.find_element(By.CSS_SELECTOR,
-                              "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(" + str(i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href'))
+    try:
+        print(driver.find_element(By.CSS_SELECTOR,
+                                  "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(" + str(i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href'))
+    except:
+        print(driver.find_element(By.CSS_SELECTOR,
+                                  "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child(" + str(
+                                      i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href'))
 
 driver.close()
 
-# 기온 크롤링
-driver = get_driver()
-driver.get(
-    "https://www.google.com/search?q=%EB%B3%B4%EB%9D%BC%EB%A7%A4+%EB%82%A0%EC%94%A8&ei=qVWqY-eoD83r-Aab_oCADQ&ved=0ahUKEwinodfM3Zj8AhXNNd4KHRs_ANAQ4dUDCA8&uact=5&oq=%EB%B3%B4%EB%9D%BC%EB%A7%A4+%EB%82%A0%EC%94%A8&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIKCAAQgAQQRhCAAjoKCAAQRxDWBBCwAzoRCC4QgwEQrwEQxwEQsQMQgAQ6BQgAEIAEOgsILhCABBDHARCvAToLCC4QrwEQxwEQgAQ6BAgAEAM6BwgAEB4Q8QQ6BAgAEB46BggAEAgQHkoECEEYAEoECEYYAFD-AliYD2CxEGgDcAF4AIABkwGIAacKkgEEMC4xMJgBAKABAcgBCsABAQ&sclient=gws-wiz-serp")
+# # 기온 크롤링
+# driver = get_driver()
+# driver.get(
+#     "https://www.google.com/search?q=%EB%B3%B4%EB%9D%BC%EB%A7%A4+%EB%82%A0%EC%94%A8&ei=qVWqY-eoD83r-Aab_oCADQ&ved=0ahUKEwinodfM3Zj8AhXNNd4KHRs_ANAQ4dUDCA8&uact=5&oq=%EB%B3%B4%EB%9D%BC%EB%A7%A4+%EB%82%A0%EC%94%A8&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIKCAAQgAQQRhCAAjoKCAAQRxDWBBCwAzoRCC4QgwEQrwEQxwEQsQMQgAQ6BQgAEIAEOgsILhCABBDHARCvAToLCC4QrwEQxwEQgAQ6BAgAEAM6BwgAEB4Q8QQ6BAgAEB46BggAEAgQHkoECEEYAEoECEYYAFD-AliYD2CxEGgDcAF4AIABkwGIAacKkgEEMC4xMJgBAKABAcgBCsABAQ&sclient=gws-wiz-serp")
 
-wait = WebDriverWait(driver, 5)
-
-
-def find(wait, css_selector):
-    return wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+# wait = WebDriverWait(driver, 5)
 
 
-weather = wait.until(EC.presence_of_element_located(
-    (By.CSS_SELECTOR, "#wob_tm")))
-print(weather.text + "°C")
+# def find(wait, css_selector):
+#     return wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
-# 기온 아이콘 저장
-with open("crawling/weather/icon.png", 'wb') as file:
-    l = driver.find_element(
-        "xpath", "//*[@id='wob_tci']")
-    file.write(l.screenshot_as_png)
 
-driver.close()
+# weather = wait.until(EC.presence_of_element_located(
+#     (By.CSS_SELECTOR, "#wob_tm")))
+# print(weather.text + "°C")
+
+# # 기온 아이콘 저장
+# with open("crawling/weather/icon.png", 'wb') as file:
+#     l = driver.find_element(
+#         "xpath", "//*[@id='wob_tci']")
+#     file.write(l.screenshot_as_png)
+
+# driver.close()
