@@ -17,7 +17,7 @@ The complete guide to use this repository: <https://towardsdatascience.com/creat
 Create venv
 
 ```sh
-python3 -m venv env
+python -m venv env
 ```
 
 Access issues
@@ -57,7 +57,7 @@ UI should be running on <http://localhost:3000/>
 ## Run Streamlit UI (on streamlit path)
 
 ```sh
-py -m streamlit run gui.py
+python -m streamlit run gui.py
 ```
 
 Streamlit UI should be running on <http://localhost:8501/>
