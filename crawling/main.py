@@ -48,21 +48,23 @@ search = find(wait, "#tSearch > form > fieldset > input")
 search.send_keys(str(list_c_f[3])+"\n")
 
 # 제품명 출력
-# for i in range(1, 6):
-#     try:
-#         i = wait.until(EC.presence_of_element_located(
-#             (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-#     except:
-#         i = wait.until(EC.presence_of_element_located(
-#             (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-#     print(i.text)
+file = open("crawling/text/c/여자/조거팬츠 여성.txt", "w", encoding="utf8")
+for i in range(1, 6):
+    try:
+        i = wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
+    except:
+        i = wait.until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
+    file.write(i.text + ", \n")
+file.close()
 
 # 제품 이미지 저장
-for i in range(1, 6):
-    with open("crawling/image/c/여자/" + str(list_c_f[3]) + "/" + str(list_c_f[3]) + str(i)+".png", 'wb') as file:
-        l = driver.find_element(
-            "xpath", "//*[@id='layBodyWrap']/div/div/div[3]/div/section[1]/ul/li[" + str(i) + "]/div/div[1]/a/img")
-        file.write(l.screenshot_as_png)
+# for i in range(1, 6):
+#     with open("crawling/image/c/여자/" + str(list_c_f[3]) + "/" + str(list_c_f[3]) + str(i)+".png", 'wb') as file:
+#         l = driver.find_element(
+#             "xpath", "//*[@id='layBodyWrap']/div/div/div[3]/div/section[1]/ul/li[" + str(i) + "]/div/div[1]/a/img")
+#         file.write(l.screenshot_as_png)
 
 # 제품 구매링크 출력
 # for i in range(1, 6):
