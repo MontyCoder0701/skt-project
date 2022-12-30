@@ -39,14 +39,13 @@ list_a_f = ["여성 브이넥 니트", "여성 라운드넥 가디건", "여성 
 
 
 list_b_m = ["남성 셔츠", "남성 긴팔 니트", "남성 세미와이드", "남성 테이퍼드"]
-list_b_f = ["오프숄더 상의", "퍼프소매 상의", "레이스 상의", "셔링 상의",
-            "A라인 하의", "하이웨스트 하의", "세미와이드 하의", "테이퍼드핏 하의"]
+list_b_f = ["오프숄더 블라우스", "여성 레이스 셔츠", "A라인 겨울치마", "하이웨스트 슬랙스"]
 
-list_c = ["오버핏 상의", "린넨 상의", "셔츠 상의", "자켓 상의",
-          "와이드핏 하의", "루즈핏 하의", "핀턱 하의", "조거팬츠 하의"]
+list_c_m = ["남자 후드티 오버핏", "남자가죽자켓", "남자 와이드핏", "카고 조거팬츠 남성"]
+list_c_f = ["여자 후드티", "여자 자켓", "여자 와이드 하의", "조거팬츠 여성"]
 
 search = find(wait, "#tSearch > form > fieldset > input")
-search.send_keys(str(list_b_m[1])+"\n")
+search.send_keys(str(list_c_f[3])+"\n")
 
 # 제품명 출력
 # for i in range(1, 6):
@@ -60,7 +59,7 @@ search.send_keys(str(list_b_m[1])+"\n")
 
 # 제품 이미지 저장
 for i in range(1, 6):
-    with open("crawling/image/b/남자/" + str(list_b_m[1]) + "/" + str(list_b_m[1]) + str(i)+".png", 'wb') as file:
+    with open("crawling/image/c/여자/" + str(list_c_f[3]) + "/" + str(list_c_f[3]) + str(i)+".png", 'wb') as file:
         l = driver.find_element(
             "xpath", "//*[@id='layBodyWrap']/div/div/div[3]/div/section[1]/ul/li[" + str(i) + "]/div/div[1]/a/img")
         file.write(l.screenshot_as_png)
