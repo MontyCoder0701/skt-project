@@ -37,7 +37,6 @@ def find(wait, css_selector):
 list_a_m = ["남성 브이넥 니트", "남성 라운드넥 니트", "남성 일자핏 정장", "남성 일자핏 청바지"]
 list_a_f = ["여성 브이넥 니트", "여성 라운드넥 가디건", "여성 일자 정장", "여성 일자 바지"]
 
-
 list_b_m = ["남성 셔츠", "남성 긴팔 니트", "남성 세미와이드", "남성 테이퍼드"]
 list_b_f = ["오프숄더 블라우스", "여성 레이스 셔츠", "A라인 겨울치마", "하이웨스트 슬랙스"]
 
@@ -48,16 +47,16 @@ search = find(wait, "#tSearch > form > fieldset > input")
 search.send_keys(str(list_c_f[3])+"\n")
 
 # 제품명 출력
-file = open("crawling/text/c/여자/조거팬츠 여성.txt", "w", encoding="utf8")
-for i in range(1, 6):
-    try:
-        i = wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-    except:
-        i = wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
-    file.write(i.text + ", \n")
-file.close()
+# file = open("crawling/text/c/여자/조거팬츠 여성.txt", "w", encoding="utf8")
+# for i in range(1, 6):
+#     try:
+#         i = wait.until(EC.presence_of_element_located(
+#             (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
+#     except:
+#         i = wait.until(EC.presence_of_element_located(
+#             (By.CSS_SELECTOR, "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child("+str(i)+") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2")))
+#     file.write(i.text + ", \n")
+# file.close()
 
 # 제품 이미지 저장
 # for i in range(1, 6):
@@ -67,15 +66,16 @@ file.close()
 #         file.write(l.screenshot_as_png)
 
 # 제품 구매링크 출력
-# for i in range(1, 6):
-#     try:
-#         print(driver.find_element(By.CSS_SELECTOR,
-#                                   "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(" + str(i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href'))
-#     except:
-#         print(driver.find_element(By.CSS_SELECTOR,
-#                                   "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child(" + str(
-#                                       i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href'))
-
+file = open("crawling/hyperlink/c/여자/조거팬츠 여성.txt", "w", encoding="utf8")
+for i in range(1, 6):
+    try:
+        file.write(driver.find_element(By.CSS_SELECTOR,
+                                       "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(3) > ul > li:nth-child(" + str(i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href') + ", \n")
+    except:
+        file.write(driver.find_element(By.CSS_SELECTOR,
+                                       "#layBodyWrap > div > div > div.l_search_content > div > section:nth-child(2) > ul > li:nth-child(" + str(
+                                           i) + ") > div > div.c_card_info > div.c_prd_name.c_prd_name_row_2 > a").get_attribute('href') + ", \n")
+file.close()
 driver.close()
 
 # 기온 크롤링
