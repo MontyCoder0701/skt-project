@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
                     temperature.textContent =
                         Math.floor(data.main.temp - kelvin) + "°C";
                     summary.textContent = data.weather[0].description;
-                    loc.textContent = data.name + "," + data.sys.country;
+                    // loc.textContent = data.name + "," + data.sys.country;
                     let icon1 = data.weather[0].icon;
                     icon.innerHTML =
                         `<img src="./weather/icons/${icon1}.png" style= 'height:5rem'/>`;
