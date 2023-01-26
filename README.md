@@ -68,3 +68,7 @@ Streamlit UI should be running on <http://localhost:8501/>
 - If the model is updated, it should be run before running the server.
 - The server should be running before the client is launched.
 - Check the version of node js
+
+## Postman API  
+![image](https://user-images.githubusercontent.com/104475739/214767265-a973e981-841b-497b-8a4d-a9429f521fa4.png)  
+
