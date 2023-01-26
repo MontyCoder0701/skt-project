@@ -70,5 +70,5 @@ Streamlit UI should be running on <http://localhost:8501/>
 - Check the version of node js
 
 ## Postman API  
-![image](https://user-images.githubusercontent.com/104475739/214767265-a973e981-841b-497b-8a4d-a9429f521fa4.png)  
 
+![image](https://user-images.githubusercontent.com/104475739/214767265-a973e981-841b-497b-8a4d-a9429f521fa4.png)  
