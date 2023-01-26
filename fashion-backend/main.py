@@ -45,30 +45,28 @@ def model_predict(img_path, model):
 @app.route('/', methods=['GET'])
 def index():
     # Main page
-    return render_template('index.html')
+    return "Hello world"
 
 
-@app.route('/predict', methods=['GET', 'POST'])
-def upload():
-    if request.method == 'POST':
-        # Get the file from post request
-        f = request.files['file']
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Get the file from post request
+    f = request.files['file']
 
-        # Save the file to ./uploads
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(
-            basepath, 'uploads', secure_filename(f.filename))
-        f.save(file_path)
+    # Save the file to ./uploads
+    basepath = os.path.dirname(__file__)
+    file_path = os.path.join(
+        basepath, 'uploads', secure_filename(f.filename))
+    f.save(file_path)
 
-        # Make prediction
-        preds = model_predict(file_path, model)
+    # Make prediction
+    preds = model_predict(file_path, model)
 
-        # Process your result for human
-        # pred_class = preds.argmax(axis=-1)            # Simple argmax
-        pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
-        result = str(pred_class[0][0][1])               # Convert to string
-        return jsonify({'prediction': str(result)})
-    return None
+    # Process your result for human
+    # pred_class = preds.argmax(axis=-1)            # Simple argmax
+    pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
+    result = str(pred_class[0][0][1])               # Convert to string
+    return jsonify({'prediction': str(result)})
 
 
 if __name__ == '__main__':
